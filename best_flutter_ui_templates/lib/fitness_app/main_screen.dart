@@ -72,6 +72,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     // }
 
     return WillPopScope(
+      // ignore: missing_return
       onWillPop: () {
         int tabID = InheritedObjects.of(context).bodyWidget.currentBody;
         if ([1,2,3,4,5,6,7,8,9].contains(tabID)) {
@@ -98,20 +99,20 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
               // tabID = 3;
              // }
 
-            if (tabID == 3) {
+            if (tabID == 0) {
               body = UserScreen(animationController: animationController);
-            } else if (tabID == 6) {
-              body = ContactScreen(animationController: animationController);
-            } else if (tabID == 7) {
-              body = AboutUsScreen(animationController: animationController);
-            } else if (tabID == 4) {
-              body = QRScreen(animationController: animationController);
-            } else if (tabID == 2) {
-              body = SuggestionScreen(animationController: animationController);
             } else if (tabID == 1) {
-              body = TopDishesScreen(animationController: animationController);
-            } else {
               body = HomeScreen(animationController: animationController);
+            // } else if (tabID == 7) {
+            //   body = AboutUsScreen(animationController: animationController);
+            // } else if (tabID == 3) {
+            //   body = QRScreen(animationController: animationController);
+            // } else if (tabID == 2) {
+            //   body = SuggestionScreen(animationController: animationController);
+            // } else if (tabID == 1) {
+            //   body = TopDishesScreen(animationController: animationController);
+            } else {
+              body = QRScreen(animationController: animationController);
             }
 
             return Stack(

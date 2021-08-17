@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
 import 'package:best_flutter_ui_templates/fitness_app/common_models/CommonWidgets.dart';
 import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
@@ -7,7 +9,7 @@ import 'package:best_flutter_ui_templates/fitness_app/models/user.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/mediterranesn_diet_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +21,7 @@ class UserScreen extends StatefulWidget {
   _UserScreenState createState() => _UserScreenState();
 }
 
-class _UserScreenState extends State<UserScreen>
-    with TickerProviderStateMixin {
+class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
   Animation<double> topBarAnimation;
 
   List<Widget> listViews = <Widget>[];
@@ -33,6 +34,18 @@ class _UserScreenState extends State<UserScreen>
   TextEditingController orgController;
   String status = "r";
 
+  String ca_nhiem = "";
+  String dang_dieu_tri = "";
+  String khoi = "";
+  String tu_vong = "";
+  String ca_nhiem_g = "";
+  String dang_dieu_tri_g = "";
+  String khoi_g = "";
+  String tu_vong_g = "";
+  String dk = "";
+  String tiem_24h = "";
+  String da_tiem = "";
+
   @override
   void initState() {
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -44,7 +57,6 @@ class _UserScreenState extends State<UserScreen>
     phoneController = new TextEditingController();
     addrController = new TextEditingController();
     orgController = new TextEditingController();
-
 
     scrollController.addListener(() {
       if (scrollController.offset >= 24) {
@@ -71,119 +83,90 @@ class _UserScreenState extends State<UserScreen>
     super.initState();
   }
 
-  void addListUpdate(BuildContext context) {
-    const int count = 3;
-    Animation animation = Tween<double>(begin: 0.0, end: 1.0).animate(
-        CurvedAnimation(
-            parent: widget.animationController,
-            curve: Interval((1 / 9) * 0, 1.0, curve: Curves.fastOutSlowIn)));
-    User user = InheritedObjects.of(context).user.currentUser;
-    // user = new User(id: 'abcxyz', name: "PHẠM VIỆT ANH", address: "303 ShynDongBil", phone: "01086820000", org_cd: "001", org_nm: "Hagidong");
+  void leakNumbers() async {
+    ///////// goi nhieu lan
+    print(1);
+    if(ca_nhiem == "") {
+      final response = await http.get(Uri.parse('https://ncov.moh.gov.vn/'));
+      String source = Utf8Decoder().convert(response.bodyBytes);
 
-    nameController.text = user.name;
-    phoneController.text = user.phone;
-    addrController.text = user.address;
-    orgController.text = user.org_nm;
+      if (response.statusCode == 200) {
+        // print(source);
+        var regexp = new RegExp(
+            r'Số ca nhiễm <br> <span class="font24">([\d|\.]*)</span>');
+        ca_nhiem =
+            regexp.allMatches(source).map((m) => m.group(1)).elementAt(0);
+        var regexp2 = new RegExp(
+            r'Đang điều trị <br> <span class="font24">([\d|\.]*)</span>');
+        dang_dieu_tri =
+            regexp2.allMatches(source).map((m) => m.group(1)).elementAt(0);
+        var regexp3 =
+        new RegExp(r'Khỏi <br> <span class="font24">([\d|\.]*)</span>');
+        khoi = regexp3.allMatches(source).map((m) => m.group(1)).elementAt(0);
+        var regexp4 =
+        new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
+        tu_vong =
+            regexp4.allMatches(source).map((m) => m.group(1)).elementAt(0);
 
+        regexp = new RegExp(
+            r'Tổng ca nhiễm <br> <span class="font24">([\d|\.]*)</span>');
+        ca_nhiem_g =
+            regexp.allMatches(source).map((m) => m.group(1)).elementAt(0);
+        regexp2 =
+        new RegExp(r'Đang nhiễm <br> <span class="font24">([\d|\.]*)</span>');
+        dang_dieu_tri_g =
+            regexp2.allMatches(source).map((m) => m.group(1)).elementAt(0);
+        regexp3 =
+        new RegExp(r'Khỏi <br> <span class="font24">([\d|\.]*)</span>');
+        khoi_g = regexp3.allMatches(source).map((m) => m.group(1)).elementAt(1);
+        regexp4 =
+        new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
+        tu_vong_g =
+            regexp4.allMatches(source).map((m) => m.group(1)).elementAt(1);
+      } else {
+        throw Exception('Failed to load dishes');
+      }
+    }
 
-    listViews = [];
+    if(dk == "") {
+      final response2 = await http.get(Uri.parse(
+          'https://tiemchungcovid19.gov.vn/api/public/dashboard/vaccination-statistics/summary'));
+      String source2 = Utf8Decoder().convert(response2.bodyBytes);
+      if (response2.statusCode == 200) {
+        // print(source);
+        var result = json.decode(source2);
+        dk = numberTemplate(result['totalVaccinationRegistration'].toString());
+        if (mounted) {
+          setState(() {
 
-    listViews.add(
-        AnimatedBuilder(
-            animation: widget.animationController,
-            builder: (BuildContext context, Widget child) {
-              return FadeTransition(
-                  opacity: animation,
-                  child: new Transform(
-                      transform: new Matrix4.translationValues(
-                          0.0, 30 * (1.0 - animation.value), 0.0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 24, right: 24, top: 16, bottom: 18),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppTheme.lightCyan,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8.0),
-                                bottomLeft: Radius.circular(8.0),
-                                bottomRight: Radius.circular(8.0),
-                                topRight: Radius.circular(8.0)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: AppTheme.grey.withOpacity(0.2),
-                                  offset: Offset(1.1, 1.1),
-                                  blurRadius: 10.0),
-                            ],
-                          ),
-                          padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(LanguageMap.getValue("user.name")+ ":"),
-                              TextField(controller: nameController),
-                              SizedBox(height: 20,),
-                              Text(LanguageMap.getValue("user.phone")+ ":"),
-                              TextField(controller: phoneController),
-                              SizedBox(height: 20,),
-                              Text(LanguageMap.getValue("user.add")+ ":"),
-                              TextField(controller: addrController),
-                              SizedBox(height: 20,),
-                              Text(LanguageMap.getValue("user.org")+ ":"),
-                              TextField(controller: orgController),
-                            ],
-                          ),
-                        ),
-                      )
-                  )
-              );
-            })
-    );
-    listViews.add(
-        Padding(
-            padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
-            child:
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child:
-                  RaisedButton(
-                    onPressed: () {
-                      setState(() {
-                        status = "r";
-                      });
-                    },
-                    color: AppTheme.white,
-                    child: Icon(Icons.close, color: AppTheme.darkCyan),
-                  ),
-//              IconButton(icon: Icon(Icons.refresh, color: AppTheme.pink, size: 18), color: AppTheme.pink, onPressed: null)
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child:
-                  RaisedButton(
-                    onPressed: () {
+          });
+        }
+      } else {
+        throw Exception('Failed to load dishes');
+      }
+    }
 
-                      setState(() {
-                        status = "r";
-                      });
-                    },
-                    color: AppTheme.darkCyan,
-                    child: Icon(Icons.check, color: AppTheme.white),
-                  ),
-//              IconButton(icon: Icon(Icons.refresh, color: AppTheme.pink, size: 18), color: AppTheme.pink, onPressed: null)
-                )
-              ],
-            )
-        )
-    );
+    if(tiem_24h == "") {
+      final response3 = await http.get(Uri.parse(
+          'https://tiemchungcovid19.gov.vn/api/public/dashboard/vaccination-statistics/get-detail-latest'));
+      String source3 = Utf8Decoder().convert(response3.bodyBytes);
+      if (response3.statusCode == 200) {
+        // print(source);
+        var result = json.decode(source3);
+        tiem_24h = numberTemplate(result['totalPopulation'].toString());
+        da_tiem = numberTemplate(result['objectInjection'].toString());
+        if (mounted) {
+          setState(() {
+
+          });
+        }
+      } else {
+        throw Exception('Failed to load dishes');
+      }
+    }
   }
-  void updateUserInfo(){
 
-
-  }
+  void updateUserInfo() {}
   void addListView(BuildContext context) {
     const int count = 3;
     Animation animation = Tween<double>(begin: 0.0, end: 1.0).animate(
@@ -192,63 +175,234 @@ class _UserScreenState extends State<UserScreen>
             curve: Interval((1 / 9) * 0, 1.0, curve: Curves.fastOutSlowIn)));
     User user = InheritedObjects.of(context).user.currentUser;
 
-
     listViews = [];
-    listViews.add(
-        CommonWidgets.singleTitleWithAnimation(LanguageMap.getValue("main.info"), widget.animationController)
-    );
-    listViews.add(
-        AnimatedBuilder(
-            animation: widget.animationController,
-            builder: (BuildContext context, Widget child) {
-              return FadeTransition(
-                  opacity: animation,
-                  child: new Transform(
-                      transform: new Matrix4.translationValues(
-                          0.0, 30 * (1.0 - animation.value), 0.0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 24, right: 24, top: 0, bottom: 18),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppTheme.lightCyan,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(8.0),
-                                bottomLeft: Radius.circular(8.0),
-                                bottomRight: Radius.circular(8.0),
-                                topRight: Radius.circular(8.0)),
-                            boxShadow: <BoxShadow>[
-                              BoxShadow(
-                                  color: AppTheme.grey.withOpacity(0.2),
-                                  offset: Offset(1.1, 1.1),
-                                  blurRadius: 10.0),
+    listViews.add(CommonWidgets.singleTitleWithAnimation(
+        LanguageMap.getValue("main.news"), widget.animationController));
+    listViews.add(AnimatedBuilder(
+        animation: widget.animationController,
+        builder: (BuildContext context, Widget child) {
+          return FadeTransition(
+              opacity: animation,
+              child: new Transform(
+                  transform: new Matrix4.translationValues(
+                      0.0, 30 * (1.0 - animation.value), 0.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 0, bottom: 18),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppTheme.nearlyWhite,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            bottomLeft: Radius.circular(8.0),
+                            bottomRight: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0)),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: AppTheme.grey.withOpacity(0.2),
+                              offset: Offset(1.1, 1.1),
+                              blurRadius: 10.0),
+                        ],
+                      ),
+                      padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            LanguageMap.getValue("news.national"),
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Divider(),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.cases") + ":",
+                                style: TextStyle(color: Color(0xFF8B0000)),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(ca_nhiem,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF8B0000)),
+                              ),
                             ],
                           ),
-                          padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(LanguageMap.getValue("user.name")+ ":", style: TextStyle(fontWeight: FontWeight.w600),),
-                              Text(user.name),
-                              SizedBox(height: 20,),
-                              Text(LanguageMap.getValue("user.phone")+ ":", style: TextStyle(fontWeight: FontWeight.w600),),
-                              Text(user.phone),
-                              SizedBox(height: 20,),
-                              Text(LanguageMap.getValue("user.add")+ ":", style: TextStyle(fontWeight: FontWeight.w600),),
-                              Text(user.address),
-                              SizedBox(height: 20,),
-                              Text(LanguageMap.getValue("user.org")+ ":", style: TextStyle(fontWeight: FontWeight.w600),),
-                              
-                              Text(user.org_nm),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.treated") + ":",
+                                style: TextStyle(color: Colors.deepOrange),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(dang_dieu_tri,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.deepOrange),
+                              ),
                             ],
                           ),
-                        ),
-                      )
-                  )
-              );
-            })
-    );
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.cured") + ":",
+                                style: TextStyle( color: Colors.green),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(khoi,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.dead") + ":",
+                                style: TextStyle(color: Color(0xFF808080)),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(tu_vong,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF808080)),
+                              ),
+                            ],
+                          ),
+                          Divider(),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.registed") + ":",
+                                style: TextStyle(color:  AppTheme.darkCyan),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(dk,
+                                style: TextStyle(fontWeight: FontWeight.w600, color:  AppTheme.darkCyan),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.24h") + ":",
+                                style: TextStyle( color:  AppTheme.darkCyan),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(tiem_24h,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkCyan),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.all") + ":",
+                                style: TextStyle(color: AppTheme.darkCyan),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(da_tiem,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkCyan),
+                              ),
+                            ],
+                          ),
+
+                        ],
+                      ),
+                    ),
+                  )));
+        }));
+    listViews.add(AnimatedBuilder(
+        animation: widget.animationController,
+        builder: (BuildContext context, Widget child) {
+          return FadeTransition(
+              opacity: animation,
+              child: new Transform(
+                  transform: new Matrix4.translationValues(
+                      0.0, 30 * (1.0 - animation.value), 0.0),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 0, bottom: 18),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: AppTheme.nearlyWhite,
+                        borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(8.0),
+                            bottomLeft: Radius.circular(8.0),
+                            bottomRight: Radius.circular(8.0),
+                            topRight: Radius.circular(8.0)),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                              color: AppTheme.grey.withOpacity(0.2),
+                              offset: Offset(1.1, 1.1),
+                              blurRadius: 10.0),
+                        ],
+                      ),
+                      padding: EdgeInsets.fromLTRB(20, 16, 20, 16),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            LanguageMap.getValue("news.international"),
+                            style: TextStyle(fontWeight: FontWeight.w600),
+                          ),
+                          Divider(),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.cases") + ":",
+                                style: TextStyle( color: Color(0xFF8B0000)),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(ca_nhiem_g,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF8B0000)),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.treated") + ":",
+                                style: TextStyle(color: Colors.deepOrange),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(dang_dieu_tri_g,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.deepOrange),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.cured") + ":",
+                                style: TextStyle(color: Colors.green),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(khoi_g,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 10,),
+                          Row(
+                            children: [
+                              Text(
+                                LanguageMap.getValue("news.dead") + ":",
+                                style: TextStyle(color:  Color(0xFF808080)),
+                              ),
+                              SizedBox(width: 10,),
+                              Text(tu_vong_g,
+                                style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF808080)),
+                              ),
+                            ],
+                          )
+
+                        ],
+                      ),
+                    ),
+                  )));
+        }));
 //     listViews.add(
 //         Padding(
 //             padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
@@ -269,20 +423,22 @@ class _UserScreenState extends State<UserScreen>
 //     );
   }
 
+  String numberTemplate(String num){
+    RegExp reg = new RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+    Function mathFunc = (Match match) => '${match[1]},';
+    return num.replaceAllMapped(reg, mathFunc).replaceAll(",", ".");
+  }
+
   Future<bool> getData() async {
     await Future<dynamic>.delayed(const Duration(milliseconds: 50));
+    leakNumbers();
     return true;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    User u = InheritedObjects.of(context).user.currentUser;
-    if(u.id == null || u.id == ""){
-      status = "u";
-    }
-    status == "r"? addListView(context): addListUpdate(context);
+    getData();
+    addListView(context);
     // addListUpdate(context);
     return Container(
       color: AppTheme.background,
@@ -305,20 +461,21 @@ class _UserScreenState extends State<UserScreen>
     return StreamBuilder<User>(
       stream: InheritedObjects.of(context).user.myStream,
       builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-
-          return ListView.builder(
-            controller: scrollController,
-            padding: EdgeInsets.only(
-              top: AppBar().preferredSize.height + MediaQuery.of(context).size.height*0.12-40,
-              bottom: 62 + MediaQuery.of(context).padding.bottom,
-            ),
-            itemCount: listViews.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              widget.animationController.forward();
-              return listViews[index];
-            },
-          );
+        return ListView.builder(
+          controller: scrollController,
+          padding: EdgeInsets.only(
+            top: AppBar().preferredSize.height +
+                MediaQuery.of(context).size.height * 0.12 -
+                40,
+            bottom: 62 + MediaQuery.of(context).padding.bottom,
+          ),
+          itemCount: listViews.length,
+          scrollDirection: Axis.vertical,
+          itemBuilder: (BuildContext context, int index) {
+            widget.animationController.forward();
+            return listViews[index];
+          },
+        );
       },
     );
   }

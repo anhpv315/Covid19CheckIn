@@ -63,13 +63,13 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
               children: <Widget>[
                 Positioned(
                     top: 20,
-                    left: 50,
+                    left: 60,
                     child: Image.asset('assets/images/shield2.png', width: 100, )
                 ),
                 Positioned(
-                    top: 20,
-                    right: 0,
-                    child: Image.asset('assets/images/virus2.png', width: 200,)
+                    top: 30,
+                    right: 40,
+                    child: Image.asset('assets/images/virus2.png', width: 150,)
                 ),
                 // Positioned(
                 //     top: -100,
@@ -204,7 +204,8 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
         Padding(
               padding:
               const EdgeInsets.only(top: 0, left: 8, right: 8, bottom: 0),
-              child: currentTab == 4? headTitle(LanguageMap.getValue("code.qrTitle")):  headTitle("APROTECT"),
+              // child: currentTab == 4? headTitle(LanguageMap.getValue("code.qrTitle")):  headTitle("APROTECT"),
+              child: Text(""),
 
         ),
         )

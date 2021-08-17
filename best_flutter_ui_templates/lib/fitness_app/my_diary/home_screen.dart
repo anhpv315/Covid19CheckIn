@@ -34,7 +34,7 @@ class _HomeScreenState extends State<HomeScreen>
     with TickerProviderStateMixin {
   Animation<double> topBarAnimation;
   String lang = '';
-  List<Map> langs = [{'label':'VN', 'value': 'vi'},{'label':'EN', 'value': 'en'},{'label':'KR', 'value': 'ko'}];
+  List<Map> langs = [{'label':'VN', 'value': 'vi'},{'label':'EN', 'value': 'en'}];
   List<DropdownMenuItem<String>> listLangItem = <DropdownMenuItem<String>>[];
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
@@ -116,46 +116,46 @@ class _HomeScreenState extends State<HomeScreen>
     // listViews.add(
     //     CommonWidgets.singleTitleWithAnimation(LanguageMap.getValue("main.info"), widget.animationController)
     // );
-    listViews.add(AnimatedBuilder(
-        animation: widget.animationController,
-        builder: (BuildContext context, Widget child) {
-          user = InheritedObjects.of(context).user.currentUser;
-          return FadeTransition(
-              opacity: topBarAnimation,
-              child: new Transform(
-                  transform: new Matrix4.translationValues(
-                      0.0, 30 * (1.0 - animation.value), 0.0),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 24, right: 24, top: 16, bottom: 18),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.lightCyan,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(8.0),
-                            bottomLeft: Radius.circular(24.0),
-                            bottomRight: Radius.circular(8.0),
-                            topRight: Radius.circular(24.0)),
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                              color: AppTheme.grey.withOpacity(0.2),
-                              offset: Offset(1.1, 1.1),
-                              blurRadius: 10.0),
-                        ],
-                      ),
-                      padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: <Widget>[
-                          Text(user.name != null? user.name: "", style: TextStyle(fontWeight: FontWeight.w600),),
-                          Text(user.address != null? user.address: ""),
-                          Text(user.org_nm != null? user.org_nm: ""),
-                        ],
-                      ),
-                    ),
-                  )));
-        }));
+    // listViews.add(AnimatedBuilder(
+    //     animation: widget.animationController,
+    //     builder: (BuildContext context, Widget child) {
+    //       user = InheritedObjects.of(context).user.currentUser;
+    //       return FadeTransition(
+    //           opacity: topBarAnimation,
+    //           child: new Transform(
+    //               transform: new Matrix4.translationValues(
+    //                   0.0, 30 * (1.0 - animation.value), 0.0),
+    //               child: Padding(
+    //                 padding: const EdgeInsets.only(
+    //                     left: 24, right: 24, top: 16, bottom: 18),
+    //                 child: Container(
+    //                   decoration: BoxDecoration(
+    //                     color: AppTheme.lightCyan,
+    //                     borderRadius: BorderRadius.only(
+    //                         topLeft: Radius.circular(8.0),
+    //                         bottomLeft: Radius.circular(24.0),
+    //                         bottomRight: Radius.circular(8.0),
+    //                         topRight: Radius.circular(24.0)),
+    //                     boxShadow: <BoxShadow>[
+    //                       BoxShadow(
+    //                           color: AppTheme.grey.withOpacity(0.2),
+    //                           offset: Offset(1.1, 1.1),
+    //                           blurRadius: 10.0),
+    //                     ],
+    //                   ),
+    //                   padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
+    //                   child: Column(
+    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                     crossAxisAlignment: CrossAxisAlignment.stretch,
+    //                     children: <Widget>[
+    //                       Text(user.name != null? user.name: "", style: TextStyle(fontWeight: FontWeight.w600),),
+    //                       Text(user.address != null? user.address: ""),
+    //                       Text(user.org_nm != null? user.org_nm: ""),
+    //                     ],
+    //                   ),
+    //                 ),
+    //               )));
+    //     }));
 
     listViews.add(
         CommonWidgets.singleTitleWithAnimation(LanguageMap.getValue("main.hisTitle"), widget.animationController)
@@ -194,7 +194,7 @@ class _HomeScreenState extends State<HomeScreen>
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.asset(
-                            'assets/fitness_app/aprotect-logo-nobg.png', width: 150,),
+                            'assets/images/aprotect-logo-nobg.png', width: 150,),
                       ],
                   ),
                   SizedBox(height: 50),

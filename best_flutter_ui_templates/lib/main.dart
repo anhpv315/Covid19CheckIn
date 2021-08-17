@@ -24,6 +24,7 @@ import 'fitness_app/models/user.dart';
 import 'fitness_app/util/LocalStorage.dart';
 
 void main() async {
+  HttpOverrides.global = new MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   await LocalStorage.init();
   SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
@@ -100,5 +101,14 @@ class MyApp extends StatelessWidget {
       ),
       home: MainScreen(),
     );
+  }
+}
+
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

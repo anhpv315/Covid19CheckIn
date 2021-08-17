@@ -154,15 +154,15 @@ class _BottomBarViewState extends State<BottomBarView>
                                     widget.changeIndex(0);
                                   }),
                             ),
-                            Expanded(
-                              child: TabIcons(
-                                  tabIconData: widget.tabIconsList[1],
-                                  removeAllSelect: () {
-                                    setRemoveAllSelection(
-                                        widget.tabIconsList[1]);
-                                    widget.changeIndex(1);
-                                  }),
-                            ),
+                            // Expanded(
+                            //   child: TabIcons(
+                            //       tabIconData: widget.tabIconsList[1],
+                            //       removeAllSelect: () {
+                            //         setRemoveAllSelection(
+                            //             widget.tabIconsList[1]);
+                            //         widget.changeIndex(1);
+                            //       }),
+                            // ),
                             SizedBox(
                               width: Tween<double>(begin: 0.0, end: 1.0)
                                       .animate(CurvedAnimation(
@@ -171,22 +171,22 @@ class _BottomBarViewState extends State<BottomBarView>
                                       .value *
                                   64.0,
                             ),
+                            // Expanded(
+                            //   child: TabIcons(
+                            //       tabIconData: widget.tabIconsList[2],
+                            //       removeAllSelect: () {
+                            //         setRemoveAllSelection(
+                            //             widget.tabIconsList[2]);
+                            //         widget.changeIndex(2);
+                            //       }),
+                            // ),
                             Expanded(
                               child: TabIcons(
-                                  tabIconData: widget.tabIconsList[2],
+                                  tabIconData: widget.tabIconsList[1],
                                   removeAllSelect: () {
                                     setRemoveAllSelection(
-                                        widget.tabIconsList[2]);
-                                    widget.changeIndex(2);
-                                  }),
-                            ),
-                            Expanded(
-                              child: TabIcons(
-                                  tabIconData: widget.tabIconsList[3],
-                                  removeAllSelect: () {
-                                    setRemoveAllSelection(
-                                        widget.tabIconsList[3]);
-                                    widget.changeIndex(3);
+                                        widget.tabIconsList[1]);
+                                    widget.changeIndex(1);
                                   }),
                             ),
                           ],
@@ -521,7 +521,7 @@ class _TabIconsState extends State<TabIcons> with TickerProviderStateMixin {
           onTap: () {
             int tabID = InheritedObjects.of(context).bodyWidget.currentBody;
 
-            if (!widget.tabIconData.isSelected || tabID == 4) {
+            if (!widget.tabIconData.isSelected || tabID == 2) {
               setAnimation();
             }
           },
