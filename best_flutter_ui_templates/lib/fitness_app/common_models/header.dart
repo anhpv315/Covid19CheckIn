@@ -225,7 +225,7 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
            height: 30.0,
            width: 30.0,
            child: IconButton(
-               padding: const EdgeInsets.only(top: 12, left:0, right: 8, bottom: 0),
+               padding: const EdgeInsets.only(top: 2, left:0, right: 8, bottom: 0),
                icon: new Icon(Icons.chevron_left, color: AppTheme.nearlyWhite, size: 30),
                onPressed: () {
                  setState(() {

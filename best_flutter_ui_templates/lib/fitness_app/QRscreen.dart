@@ -278,32 +278,6 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
     );
   }
 
-  Widget getMainListViewUI() {
-    return FutureBuilder<bool>(
-      future: getData(),
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-        if (!snapshot.hasData) {
-          return const SizedBox();
-        } else {
-          return ListView.builder(
-            controller: scrollController,
-            padding: EdgeInsets.only(
-              top: AppBar().preferredSize.height +
-                  MediaQuery.of(context).padding.top +
-                  40,
-              bottom: 62 + MediaQuery.of(context).padding.bottom,
-            ),
-            itemCount: listView.length,
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int index) {
-              widget.animationController.forward();
-              return listView[index];
-            },
-          );
-        }
-      },
-    );
-  }
 
   Widget getAppBarUI() {
     return Column(
