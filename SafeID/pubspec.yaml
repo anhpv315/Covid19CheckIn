@@ -39,6 +39,8 @@ dependencies:
   flutter_typeahead: ^1.8.8
   shared_preferences: ^0.5.12+4
   qr_flutter: ^3.0.0
+  device_info: ^1.0.0
+  url_launcher: ^5.7.10
 
 
 
@@ -48,9 +50,9 @@ dev_dependencies:
     sdk: flutter
 
 flutter_icons:
-  android: true
+  android: "launcher_icon"
   ios: true
-  image_path: "assets/images/aprotect-logo.png"
+  image_path: "assets/images/icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -93,12 +95,32 @@ flutter:
           weight: 600
         - asset: assets/fonts/WorkSans-Bold.ttf
           weight: 700
+    - family: areaneu
+      fonts:
+        - asset: assets/fonts/areaneu-gxavp.ttf
+          weight: 400
+    - family: Blackpast
+      fonts:
+        - asset: assets/fonts/BlackpastDemo-vm2l9.ttf
+          weight: 400
+    - family: Sans
+      fonts:
+        - asset: assets/fonts/FreeSans.ttf
+          weight: 400
+        - asset: assets/fonts/FreeSansBold.ttf
+          weight: 500
     - family: Roboto
       fonts:
         - asset: assets/fonts/Roboto-Bold.ttf
         - asset: assets/fonts/Roboto-Regular.ttf
         - asset: assets/fonts/Roboto-Medium.ttf
           weight: 400
+    - family: Verdana
+      fonts:
+        - asset: assets/fonts/verdana.ttf
+          weight: 400
+        - asset: assets/fonts/Verdana Bold.ttf
+          weight: 500
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

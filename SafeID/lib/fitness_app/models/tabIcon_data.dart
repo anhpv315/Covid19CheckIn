@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class TabIconData {
   
   TabIconData({
+    this.icon = null,
     this.imagePath = '',
     this.index = 0,
     this.selectedImagePath = '',
@@ -10,6 +11,7 @@ class TabIconData {
     this.animationController,
   });
 
+  IconData icon;
   String imagePath;
   String selectedImagePath;
   bool isSelected;
@@ -19,6 +21,7 @@ class TabIconData {
 
   static List<TabIconData> tabIconsList = <TabIconData>[
     TabIconData(
+      icon: Icons.bar_chart,
       imagePath: 'assets/fitness_app/home.png',
       selectedImagePath: 'assets/fitness_app/home_s.png',
       index: 0,
@@ -40,6 +43,7 @@ class TabIconData {
     //   animationController: null,
     // ),
     TabIconData(
+      icon: Icons.description,
       imagePath: 'assets/fitness_app/personal.png',
       selectedImagePath: 'assets/fitness_app/personal_s.png',
       index: 1,

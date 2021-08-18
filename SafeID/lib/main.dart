@@ -83,9 +83,10 @@ class MyApp extends StatelessWidget {
           return;
         },
         theme: ThemeData(
+          fontFamily: "Sans",
           primarySwatch: Colors.pink[80],
           textTheme: AppTheme.textTheme,
-          platform: TargetPlatform.iOS,
+//          platform: TargetPlatform.iOS,
         ),
         home: LoadingScreen(),
       )

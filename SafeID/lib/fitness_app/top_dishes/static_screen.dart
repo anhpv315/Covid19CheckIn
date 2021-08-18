@@ -240,7 +240,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                         children: <Widget>[
                           Text(
                             LanguageMap.getValue("news.national"),
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkText),
                           ),
                           Divider(),
                           Row(
@@ -303,7 +303,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                               ),
                               SizedBox(width: 10,),
                               Text(dk,
-                                style: TextStyle(fontWeight: FontWeight.w600, color:  AppTheme.darkCyan),
+                                style: TextStyle(fontWeight: FontWeight.w600, color:  AppTheme.darkText),
                               ),
                             ],
                           ),
@@ -316,7 +316,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                               ),
                               SizedBox(width: 10,),
                               Text(tiem_24h,
-                                style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkCyan),
+                                style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkText),
                               ),
                             ],
                           ),
@@ -329,7 +329,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                               ),
                               SizedBox(width: 10,),
                               Text(da_tiem,
-                                style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkCyan),
+                                style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkText),
                               ),
                             ],
                           ),
@@ -372,7 +372,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                         children: <Widget>[
                           Text(
                             LanguageMap.getValue("news.international"),
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkText),
                           ),
                           Divider(),
                           Row(
@@ -487,6 +487,12 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                     children: [
                       Image.asset(
                         'assets/images/aprotect-logo-nobg.png', width: 150,),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Safeid", style: TextStyle(fontFamily: "Blackpast", fontSize: 20, color: AppTheme.lightGrey),),
                     ],
                   ),
                   SizedBox(height: 50),
@@ -622,25 +628,9 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
   Widget getAppBarUI() {
     return Column(
       children: <Widget>[
-        AnimatedBuilder(
-          animation: widget.animationController,
-          builder: (BuildContext context, Widget child) {
-            return FadeTransition(
-              opacity: topBarAnimation,
-              child: Transform(
-                transform: Matrix4.translationValues(
-                    0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
-                child: Column(
-                  children: <Widget>[
-                    Header(
-                        topBarOpacity: topBarOpacity,
-                        animationController: widget.animationController)
-                  ],
-                ),
-              ),
-            );
-          },
-        )
+        Header(
+            topBarOpacity: topBarOpacity,
+            animationController: widget.animationController)
       ],
     );
   }

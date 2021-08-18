@@ -325,25 +325,9 @@ class _ContactScreenState extends State<ContactScreen>
   Widget getAppBarUI() {
     return Column(
       children: <Widget>[
-        AnimatedBuilder(
-          animation: widget.animationController,
-          builder: (BuildContext context, Widget child) {
-            return FadeTransition(
-              opacity: topBarAnimation,
-              child: Transform(
-                transform: Matrix4.translationValues(
-                    0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
-                child: Column(
-                  children: <Widget>[
-                    Header(
-                        topBarOpacity: topBarOpacity,
-                        animationController: widget.animationController)
-                  ],
-                ),
-              ),
-            );
-          },
-        )
+        Header(
+            topBarOpacity: topBarOpacity,
+            animationController: widget.animationController)
       ],
     );
   }

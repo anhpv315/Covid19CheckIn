@@ -145,11 +145,14 @@ class _AboutUsScreenState extends State<AboutUsScreen>
                       padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
                       child: Column(
                         children: <Widget>[
-                          Text("AtwoM Việt Nam là chi nhánh của AtwoM Hàn Quốc, một công ty chuyên về MIS, PMS và các hệ thống web khác cũng như phát triển các giải pháp cho hệ thống web. Chúng tôi mong muốn được mở rộng kinh doanh tại Việt Nam và chúng tôi hy vọng rằng cùng với bạn, chúng ta có thể cùng nhau mang lại sự thay đổi cho tương lai của chúng ta và củng cố mối quan hệ Việt Nam - Hàn Quốc.",
+                          Text("Trước diễn biến phức tạp của dịch Covid-19, nhiều tỉnh, thành phố đã triển khai thiết lập các VÙNG XANH an toàn để bảo vệ những khu vực, cụm dân cư chưa có người nhiễm Covid-19 hoặc đã xét nghiệm sàng lọc diện rộng. ",
+                            style: TextStyle(fontSize: 14, color: AppTheme.darkCyan),
+                          ),
+                          Text("Trên tình hình đó, SafeID - một giải pháp do Công ty AtwoM Việt Nam cung cấp miễn phí tới các Tổ tự quản Covid-19 nhằm kiểm soát cư dân ra, vào Vùng Xanh bằng mã định danh cá nhân. Để ra, vào các chốt kiểm soát này, Cư dân chỉ cần thông báo mã cá nhân của mình được hiển thị trên điện thoại di động mà hoàn toàn không cần kết nối mạng hay bluetooth.",
                             style: TextStyle(fontSize: 14, color: AppTheme.darkCyan),
                           ),
                           SizedBox(height: 10,),
-                          Text("AtwoM (Advanced with Manpower & Motivation) Hàn Quốc được thành lập từ năm 1998 với bề dày kinh nghiệm về lĩnh vực CNTT tại Hàn Quốc. Năm 2016, Văn phòng Đại diện AtwoM tại TP. Hà Nội của AtwoM được mở, và tới 04/2020 công ty AtwoM Việt Nam chính thức được thành lập.",
+                          Text("Đây sẽ là một giải pháp hữu ích, thuận tiện và tuyệt đối an toàn cho người sử dụng. Hãy cùng chung tay đẩy lùi đại dịch Covid 19!",
                             style: TextStyle(fontSize: 14, color: AppTheme.darkCyan),
                           ),
 
@@ -257,25 +260,9 @@ class _AboutUsScreenState extends State<AboutUsScreen>
   Widget getAppBarUI() {
     return Column(
       children: <Widget>[
-        AnimatedBuilder(
-          animation: widget.animationController,
-          builder: (BuildContext context, Widget child) {
-            return FadeTransition(
-              opacity: topBarAnimation,
-              child: Transform(
-                transform: Matrix4.translationValues(
-                    0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
-                child: Column(
-                  children: <Widget>[
-                    Header(
-                        topBarOpacity: topBarOpacity,
-                        animationController: widget.animationController)
-                  ],
-                ),
-              ),
-            );
-          },
-        )
+      Header(
+      topBarOpacity: topBarOpacity,
+      animationController: widget.animationController)
       ],
     );
   }

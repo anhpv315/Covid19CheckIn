@@ -98,6 +98,7 @@ class _LoadingScreenState extends State<LoadingScreen>
                   children: <Widget>[
                     Image.asset('assets/images/aprotect-logo-nobg.png',
                         width: 200.0),
+                    Text("Safeid", style: TextStyle(fontFamily: "Blackpast", fontSize: 20, color: AppTheme.lightGrey),),
                     SizedBox(height: 20),
                     Container(
                       height: 50,

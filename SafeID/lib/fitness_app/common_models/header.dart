@@ -67,10 +67,21 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
                     child: Image.asset('assets/images/shield2.png', width: 100, )
                 ),
                 Positioned(
-                    top: 30,
+                    top: 35,
                     right: 40,
-                    child: Image.asset('assets/images/virus2.png', width: 150,)
+                    child: RotationTransition(
+                      turns: new AlwaysStoppedAnimation(4 / 360),
+                      child: Image.asset('assets/images/virus2.png', width: 150,),
+                    )
                 ),
+//                Positioned(
+//                    top: 75,
+//                    right: 20,
+//                    child: new RotationTransition(
+//                      turns: new AlwaysStoppedAnimation(8 / 360),
+//                      child: Image.asset('assets/images/virus2.png', width: 100,),
+//                    )
+//                ),
                 // Positioned(
                 //     top: -100,
                 //     left: -45,
