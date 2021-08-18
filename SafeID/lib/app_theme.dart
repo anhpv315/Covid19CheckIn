@@ -15,6 +15,7 @@ class AppTheme {
   static const Color pink = Color(0xFFff8197);
   static const Color pastelPink = Color(0xFFfff0ed);
 
+
   static const Color darkText = Color(0xFF213333);
   static const Color darkerText = Color(0xFF213333);
   static const Color lightText = Color(0xFF85a1d0);
