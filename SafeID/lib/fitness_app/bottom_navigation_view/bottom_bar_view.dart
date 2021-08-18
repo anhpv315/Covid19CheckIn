@@ -251,7 +251,7 @@ class _BottomBarViewState extends State<BottomBarView>
                               icon: Image.asset('assets/images/QR.png'),
                               iconSize: 20,
                               onPressed: () {
-                                Utils.updateTabIndex(context, 4);
+                                Utils.updateTabIndex(context, 2);
                               },
                             )
                             // GestureDetector(

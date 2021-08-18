@@ -36,7 +36,7 @@ class LanguageMap {
       "user.add": "Địa chỉ",
       "user.org": "Đơn vị/Tổ chức",
       "news.national": "Trong nước",
-      "news.international": "Quốc tế",
+      "news.international": "Toàn thế giới",
       "news.cases": "Số ca nhiễm",
       "news.treated": "Đang điều trị",
       "news.cured": "Đã khỏi",

@@ -6,7 +6,7 @@ import 'package:best_flutter_ui_templates/fitness_app/top_dishes/top_dishes.dart
 import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
 import 'package:best_flutter_ui_templates/fitness_app/suggestion/suggestion_screen.dart';
-import 'package:best_flutter_ui_templates/fitness_app/top_dishes/user_info.dart';
+import 'package:best_flutter_ui_templates/fitness_app/top_dishes/static_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -71,12 +71,12 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return WillPopScope(
       // ignore: missing_return
       onWillPop: () {
-//        int tabID = InheritedObjects.of(context).bodyWidget.currentBody;
-//        if ([2,3,4,5,6,7,8,9].contains(tabID)) {
-//          Utils.backToLastTab(context);
-//        } else if(tabID == 1){
-//          SystemNavigator.pop();
-//        }
+        int tabID = InheritedObjects.of(context).bodyWidget.currentBody;
+        if (tabID == 1) {
+          SystemNavigator.pop();
+        } else if(tabID == 1){
+          Utils.backToLastTab(context);
+        }
 //        Fluttertoast.showToast(
 //            msg: LanguageMap.getValue("code.copyMsg") ,
 //            toastLength: Toast.LENGTH_SHORT,
@@ -106,11 +106,13 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
              // }
 
             if (tabID == 0) {
-              body = UserScreen(animationController: animationController);
+              body = StatisticScreen(animationController: animationController);
             } else if (tabID == 1) {
               body = HomeScreen(animationController: animationController);
-            // } else if (tabID == 7) {
-            //   body = AboutUsScreen(animationController: animationController);
+             } else if (tabID == 3) {
+               body = AboutUsScreen(animationController: animationController);
+            } else if (tabID == 4) {
+              body = ContactScreen(animationController: animationController);
             // } else if (tabID == 3) {
             //   body = QRScreen(animationController: animationController);
             // } else if (tabID == 2) {
@@ -136,30 +138,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
   Future<bool> getData(BuildContext context) async {
 //    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
     return true;
-  }
-
-
-
-  Widget getAppBarUI() {
-    return Column(
-      children: <Widget>[
-        AnimatedBuilder(
-          animation: animationController,
-          builder: (BuildContext context, Widget child) {
-            return FadeTransition(
-              opacity: topBarAnimation,
-              child: Transform(
-                transform: Matrix4.translationValues(
-                    0.0, 30 * (1.0 - topBarAnimation.value), 0.0),
-                child: Column(
-                  children: <Widget>[Text("abc")],
-                ),
-              ),
-            );
-          },
-        )
-      ],
-    );
   }
 
   Widget bottomBar(BuildContext context) {

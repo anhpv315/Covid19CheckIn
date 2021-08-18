@@ -69,14 +69,14 @@ class MyApp extends StatelessWidget {
 //          print(myLocale.languageCode);
           if(LocalStorage.localStorage.getString("lang") == null || LocalStorage.localStorage.getString("lang").isEmpty){
             switch(myLocale.languageCode){
-              case 'vi':
+              case 'en':
                 LocalStorage.localStorage.setString("lang", myLocale.languageCode);
                 break;
               case 'ko':
                 LocalStorage.localStorage.setString("lang", myLocale.languageCode);
                 break;
               default:
-                LocalStorage.localStorage.setString("lang", 'en');
+                LocalStorage.localStorage.setString("lang", 'vn');
                 return;
             }
           }

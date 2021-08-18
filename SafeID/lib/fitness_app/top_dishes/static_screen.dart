@@ -9,23 +9,31 @@ import 'package:best_flutter_ui_templates/fitness_app/models/user.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/mediterranesn_diet_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
+import 'package:best_flutter_ui_templates/fitness_app/util/LocalStorage.dart';
+import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class UserScreen extends StatefulWidget {
-  const UserScreen({Key key, this.animationController}) : super(key: key);
+import '../main_screen.dart';
+
+class StatisticScreen extends StatefulWidget {
+  const StatisticScreen({Key key, this.animationController}) : super(key: key);
 
   final AnimationController animationController;
   @override
-  _UserScreenState createState() => _UserScreenState();
+  _StatisticScreenState createState() => _StatisticScreenState();
 }
 
-class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
+class _StatisticScreenState extends State<StatisticScreen> with TickerProviderStateMixin {
   Animation<double> topBarAnimation;
 
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
+  List<Map> langs = [{'label':'VN', 'value': 'vi'},{'label':'EN', 'value': 'en'}];
+  String lang = '';
+  List<DropdownMenuItem<String>> listLangItem = <DropdownMenuItem<String>>[];
   double topBarOpacity = 0.0;
   User currentUser;
   TextEditingController nameController;
@@ -33,6 +41,7 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
   TextEditingController addrController;
   TextEditingController orgController;
   String status = "r";
+  bool waiting = false;
 
   String ca_nhiem = "";
   String dang_dieu_tri = "";
@@ -48,6 +57,14 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
 
   @override
   void initState() {
+    listLangItem = [];
+    langs.forEach((element) {
+      listLangItem.add(DropdownMenuItem<String>(
+        value: element['value'],
+        child: new Text(element['label'], style: TextStyle(color: AppTheme.nearlyWhite, fontWeight: FontWeight.w800),),
+      ));
+    });
+    lang = LocalStorage.localStorage.getString("lang");
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController,
@@ -84,7 +101,9 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
   }
 
   void leakNumbers() async {
-    ///////// goi nhieu lan
+    if(waiting){
+      return;
+    }
     print(1);
     if(ca_nhiem == "") {
       final response = await http.get(Uri.parse('https://ncov.moh.gov.vn/'));
@@ -123,6 +142,9 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
         new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
         tu_vong_g =
             regexp4.allMatches(source).map((m) => m.group(1)).elementAt(1);
+        if(tu_vong != "" && dk != "" && tiem_24h != ""){
+          waiting = false;
+        }
       } else {
         throw Exception('Failed to load dishes');
       }
@@ -140,6 +162,9 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
           setState(() {
 
           });
+        }
+        if(tu_vong != "" && dk != "" && tiem_24h != ""){
+          waiting = false;
         }
       } else {
         throw Exception('Failed to load dishes');
@@ -160,10 +185,14 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
 
           });
         }
+        if(tu_vong != "" && dk != "" && tiem_24h != ""){
+          waiting = false;
+        }
       } else {
         throw Exception('Failed to load dishes');
       }
     }
+    waiting = true;
   }
 
   void updateUserInfo() {}
@@ -443,7 +472,117 @@ class _UserScreenState extends State<UserScreen> with TickerProviderStateMixin {
     return Container(
       color: AppTheme.background,
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        drawer: Theme(
+          data: Theme.of(context).copyWith(
+            canvasColor:
+            AppTheme.darkCyan, //This will change the drawer background to blue.
+            //other styles
+          ),
+          child: new Drawer(
+              child: new ListView(
+                children: <Widget>[
+                  Padding(padding: EdgeInsets.all(20)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/aprotect-logo-nobg.png', width: 150,),
+                    ],
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    color: AppTheme.darkCyan,
+                    child: ListTile(
+                      title: new Text(LanguageMap.getValue("main.contact"),
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppTheme.nearlyWhite),),
+                      onTap: () {
+                        Utils.updateTabIndex(context, 4);
+                      },
+                    ),
+                  ),
+                  Container(
+                    color: AppTheme.darkCyan,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 20, top: 0, bottom: 0),
+                      child: Container(
+                        height: 2,
+                        decoration: BoxDecoration(
+                          color: AppTheme.nearlyWhite,
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      color: AppTheme.darkCyan,
+                      child: new ListTile(
+                        title: new Text(LanguageMap.getValue("main.about_us"),
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppTheme.nearlyWhite),),
+                        onTap: () {
+                          Utils.updateTabIndex(context, 3);
+                        },
+                      )
+                  ),
+
+//                  Container(
+//                      color: AppTheme.darkCyan,
+//                      child: new ListTile(
+//                        title: new Text('Dice',
+//                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppTheme.nearlyWhite),),
+//                        onTap: () {
+//                          // Navigator.push(
+//                          //   context,
+//                          //   MaterialPageRoute(builder: (context) => DiceGame()),
+//                          // );
+//                        },
+//                      )
+//                  ),
+                  Container(
+                    color: AppTheme.darkCyan,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 20, top: 0, bottom: 0),
+                      child: Container(
+                        height: 2,
+                        decoration: BoxDecoration(
+                          color: AppTheme.nearlyWhite,
+                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                      color: AppTheme.darkCyan,
+                      child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 15, right: 20, top: 0, bottom: 0),
+                          child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                value: lang.isNotEmpty? lang: 'vn',
+                                items: listLangItem,
+                                focusColor: AppTheme.darkText,
+                                dropdownColor: AppTheme.darkCyan,
+                                onChanged: (value) async {
+                                  lang = value;
+                                  SharedPreferences prefs = await SharedPreferences.getInstance();
+                                  prefs.setString("lang", value);
+                                  print(value);
+                                  setState(() => {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => MainScreen()),
+                                    )
+                                  });
+                                },
+                              )
+                          )
+                      )
+                  )
+                ],
+              )
+          ),
+        ),        backgroundColor: Colors.transparent,
         body: Stack(
           children: <Widget>[
             getMainListViewUI(),

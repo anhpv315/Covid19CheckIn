@@ -24,9 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with TickerProviderStateMixin {
   Animation<double> topBarAnimation;
-  String lang = '';
-  List<Map> langs = [{'label':'VN', 'value': 'vi'},{'label':'EN', 'value': 'en'}];
-  List<DropdownMenuItem<String>> listLangItem = <DropdownMenuItem<String>>[];
+
   List<Widget> listViews = <Widget>[];
   final ScrollController scrollController = ScrollController();
   double topBarOpacity = 0.0;
@@ -34,14 +32,7 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState(){
-    listLangItem = [];
-    langs.forEach((element) {
-      listLangItem.add(DropdownMenuItem<String>(
-        value: element['value'],
-        child: new Text(element['label'], style: TextStyle(color: AppTheme.darkText, fontWeight: FontWeight.w800),),
-      ));
-    });
-    lang = LocalStorage.localStorage.getString("lang");
+
     topBarAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
         CurvedAnimation(
             parent: widget.animationController,
@@ -171,111 +162,6 @@ class _HomeScreenState extends State<HomeScreen>
       color: AppTheme.background,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        drawer: Theme(
-          data: Theme.of(context).copyWith(
-            canvasColor:
-            AppTheme.lightCyan, //This will change the drawer background to blue.
-            //other styles
-          ),
-          child: new Drawer(
-              child: new ListView(
-                children: <Widget>[
-                  Padding(padding: EdgeInsets.all(20)),
-                   Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                            'assets/images/aprotect-logo-nobg.png', width: 150,),
-                      ],
-                  ),
-                  SizedBox(height: 50),
-                  Container(
-                    color: AppTheme.white,
-                    child: ListTile(
-                      title: new Text(LanguageMap.getValue("main.contact"), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppTheme.darkText),),
-                      onTap: () {
-                        Utils.updateTabIndex(context, 6);
-                      },
-                    ),
-                  ),
-                  Container(
-                    color: AppTheme.white,
-                    child: new ListTile(
-                          title: new Text(LanguageMap.getValue("main.about_us"), style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppTheme.darkText),),
-                          onTap: () {
-                            Utils.updateTabIndex(context, 7);
-                          },
-                        )
-                  ),
-                  Container(
-                    color: AppTheme.white,
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10, right: 20, top: 0, bottom: 0),
-                      child: Container(
-                        height: 2,
-                        decoration: BoxDecoration(
-                          color: AppTheme.darkCyan,
-                          borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                      color: AppTheme.white,
-                      child: new ListTile(
-                        title: new Text('Dice',  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: AppTheme.darkText),),
-                        onTap: () {
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(builder: (context) => DiceGame()),
-                          // );
-                        },
-                      )
-                  ),
-                  Container(
-                    color: AppTheme.white,
-                    child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 20, top: 0, bottom: 0),
-                          child: Container(
-                            height: 2,
-                            decoration: BoxDecoration(
-                              color: AppTheme.darkCyan,
-                              borderRadius: BorderRadius.all(Radius.circular(4.0)),
-                            ),
-                          ),
-                        ),
-                  ),
-                  Container(
-                    color: AppTheme.white,
-                    child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 15, right: 20, top: 0, bottom: 0),
-                            child: DropdownButtonHideUnderline(
-                                child: DropdownButton(
-                                  value: lang.isNotEmpty? lang: 'en',
-                                  items: listLangItem,
-                                  onChanged: (value) async {
-                                    lang = value;
-                                    SharedPreferences prefs = await SharedPreferences.getInstance();
-                                    prefs.setString("lang", value);
-                                    print(value);
-                                    setState(() => {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => MainScreen()),
-                                      )
-                                    });
-                                  },
-                              )
-                            )
-                      )
-                  )
-                ],
-              )
-          ),
-        ),
         body: Stack(
           children: <Widget>[
             getMainListViewUI(),

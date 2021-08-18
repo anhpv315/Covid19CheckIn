@@ -140,17 +140,17 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
     );
   }
 
-  void backFunction(
-      BuildContext context, AnimationController animationController) {
-    int currentTab = InheritedObjects.of(context).bodyWidget.currentBody;
-    if (currentTab == 4) {
-      animationController.reverse().then<dynamic>((data) {
-        Utils.updateTabIndex(context, 0);
-
-//        BodyWidgetInherited.of(context).bodyWidget.setCurrentTab(0);
-      });
-    }
-  }
+//  void backFunction(
+//      BuildContext context, AnimationController animationController) {
+//    int currentTab = InheritedObjects.of(context).bodyWidget.currentBody;
+//    if (currentTab == 4) {
+//      animationController.reverse().then<dynamic>((data) {
+//        Utils.updateTabIndex(context, 0);
+//
+////        BodyWidgetInherited.of(context).bodyWidget.setCurrentTab(0);
+//      });
+//    }
+//  }
 
   Widget headTitle(String content){
     return Text(
@@ -211,7 +211,7 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
         )
     );
 
-    leftButton =  currentTab != 1?
+    leftButton =  currentTab == 0?
     new SizedBox(
         height: 30.0,
         width: 30.0,
@@ -221,7 +221,7 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
             onPressed: () {
               Scaffold.of(context).openDrawer();
             }))
-        : new SizedBox(
+        : {1, 3, 4}.contains(currentTab)? new SizedBox(
            height: 30.0,
            width: 30.0,
            child: IconButton(
@@ -234,7 +234,10 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
                      Utils.backToLastTab(context);
                    });
                  });
-               }));
+               })):new SizedBox(
+        height: 30.0,
+        width: 30.0,
+        child: Container());
 
   }
 }

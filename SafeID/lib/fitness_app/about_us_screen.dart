@@ -76,10 +76,10 @@ class _AboutUsScreenState extends State<AboutUsScreen>
                       0.0, 30 * (1.0 - animation.value), 0.0),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 24, right: 24, top: 16, bottom: 18),
+                        left: 24, right: 24, top: 16, bottom: 0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppTheme.white,
+                        color: AppTheme.nearlyWhite,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.0),
                             bottomLeft: Radius.circular(8.0),
@@ -99,14 +99,14 @@ class _AboutUsScreenState extends State<AboutUsScreen>
                         children: <Widget>[
                           Container(
                             child: Text(
-                              'Ứng dụng WhatMenuToday version 1.0.',
+                              'Ứng dụng SafeID version 1.0.',
                               textAlign: TextAlign.start,
                               style: TextStyle(fontSize: 16),
                             ),
                           ),
                           Container(
                             child: Text(
-                              'Phát triển bởi Phạm Việt Anh.',
+                              'Phát triển bởi AtwoM Việt Nam.',
                               textAlign: TextAlign.start,
                               style: TextStyle(fontSize: 16),
                             ),
@@ -129,7 +129,7 @@ class _AboutUsScreenState extends State<AboutUsScreen>
                         left: 24, right: 24, top: 16, bottom: 18),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppTheme.lightCyan,
+                        color: AppTheme.nearlyWhite,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.0),
                             bottomLeft: Radius.circular(40.0),
@@ -145,46 +145,14 @@ class _AboutUsScreenState extends State<AboutUsScreen>
                       padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
                       child: Column(
                         children: <Widget>[
-                          RichText(
-                            text: TextSpan(
-                              text: '',
-                              style: TextStyle(fontSize: 14, color: HexColor('#43547a')),
-                              children: <TextSpan>[
-                                TextSpan(text: 'Trong thời đại ngày này, cái thời đại mà cộng đồng mạng có câu '),
-                                TextSpan(text: '"Ngày xưa con gái nấu ăn ngon như mẹ, bây giờ con gái uống rượu giỏi như cha"', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ', nhưng chúng tôi càng thấu hiểu rằng có những người phụ nữ muốn nấu những bữa ăn ngon cho những người họ yêu thương nhưng lại không biết bắt đầu từ đâu. Bên cạnh đó còn là việc đau đầu từ cơ quan cho đến lúc đi hết 1 vòng chợ mỗi khi phải nghĩ xem '),
-                                TextSpan(text: 'hôm nay ăn gì', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: '.'),
-                              ],
-                            ),
+                          Text("AtwoM Việt Nam là chi nhánh của AtwoM Hàn Quốc, một công ty chuyên về MIS, PMS và các hệ thống web khác cũng như phát triển các giải pháp cho hệ thống web. Chúng tôi mong muốn được mở rộng kinh doanh tại Việt Nam và chúng tôi hy vọng rằng cùng với bạn, chúng ta có thể cùng nhau mang lại sự thay đổi cho tương lai của chúng ta và củng cố mối quan hệ Việt Nam - Hàn Quốc.",
+                            style: TextStyle(fontSize: 14, color: AppTheme.darkCyan),
                           ),
-                          RichText(
-                            text: TextSpan(
-                              text: '',
-                              style: TextStyle(fontSize: 14, color: HexColor('#43547a')),
-                              children: <TextSpan>[
-                                TextSpan(text: 'Vì vậy '),
-                                TextSpan(text: 'WhatMenuToday', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ' như một giải pháp chúng tôi muốn đem đến cho những '),
-                                TextSpan(text: '"người phụ nữ hiện đại"', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ', cho những người không muốn mất hàng giờ đồng hồ để lựa chọn thực đơn cho '),
-                                TextSpan(text: 'bữa ăn của gia đình mình', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: '!'),
-                              ],
-                            ),
+                          SizedBox(height: 10,),
+                          Text("AtwoM (Advanced with Manpower & Motivation) Hàn Quốc được thành lập từ năm 1998 với bề dày kinh nghiệm về lĩnh vực CNTT tại Hàn Quốc. Năm 2016, Văn phòng Đại diện AtwoM tại TP. Hà Nội của AtwoM được mở, và tới 04/2020 công ty AtwoM Việt Nam chính thức được thành lập.",
+                            style: TextStyle(fontSize: 14, color: AppTheme.darkCyan),
                           ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                              text: '',
-                              style: TextStyle(fontSize: 14, color: HexColor('#43547a')),
-                              children: <TextSpan>[
-                                TextSpan(text: 'Trong quá trình xây dựng và hoàn thiện ứng dụng, chúng tôi đều trân trọng những ý kiến đóng góp của người dùng. Nội dung các công thức nấu ăn được sưu tầm bằng thuật toán từ nguồn internet và xử lý, do sự trùng lặp nhiều không tránh khỏi thiếu sót về nguồn gốc. Chúng tôi xin bày tỏ lòng biết ơn với các tác giả và trân trọng đối với nguyên tác.'),
-                              ],
-                            ),
-                          ),
+
 
                         ],
                       ),

@@ -77,10 +77,10 @@ class _ContactScreenState extends State<ContactScreen>
                       0.0, 30 * (1.0 - animation.value), 0.0),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 24, right: 24, top: 16, bottom: 18),
+                        left: 24, right: 24, top: 16, bottom: 0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppTheme.lightCyan,
+                        color: AppTheme.nearlyWhite,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.0),
                             bottomLeft: Radius.circular(40.0),
@@ -113,7 +113,7 @@ class _ContactScreenState extends State<ContactScreen>
                               style: TextStyle(fontSize: 14, color: HexColor('#43547a')),
                               children: <TextSpan>[
                                 TextSpan(text: '(+84) 0866 688 668\n'),
-                                TextSpan(text: '(+84) 0966 699 669'),
+//                                TextSpan(text: '(+84) 0966 699 669'),
                               ],
                             ),
                           ),
@@ -134,10 +134,10 @@ class _ContactScreenState extends State<ContactScreen>
                       0.0, 30 * (1.0 - animation.value), 0.0),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 24, right: 24, top: 16, bottom: 18),
+                        left: 24, right: 24, top: 16, bottom: 0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppTheme.lightCyan,
+                        color: AppTheme.nearlyWhite,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.0),
                             bottomLeft: Radius.circular(40.0),
@@ -169,8 +169,8 @@ class _ContactScreenState extends State<ContactScreen>
                               text: '',
                               style: TextStyle(fontSize: 14, color: HexColor('#43547a')),
                               children: <TextSpan>[
-                                TextSpan(text: 'whatmenutoday.feedback@gmail.com\n'),
-                                TextSpan(text: 'homnayangi@gmail.com'),
+                                TextSpan(text: 'hotline@atwom.com.vn\n'),
+//                                TextSpan(text: 'homnayangi@gmail.com'),
                               ],
                             ),
                           ),
@@ -191,10 +191,10 @@ class _ContactScreenState extends State<ContactScreen>
                       0.0, 30 * (1.0 - animation.value), 0.0),
                   child: Padding(
                     padding: const EdgeInsets.only(
-                        left: 24, right: 24, top: 16, bottom: 18),
+                        left: 24, right: 24, top: 16, bottom: 0),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppTheme.lightCyan,
+                        color: AppTheme.nearlyWhite,
                         borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(8.0),
                             bottomLeft: Radius.circular(40.0),
@@ -216,9 +216,9 @@ class _ContactScreenState extends State<ContactScreen>
                               text: '',
                               style: TextStyle(fontSize: 14, color: HexColor('#43547a')),
                               children: <TextSpan>[
-                                TextSpan(text: 'Xin chân thành cảm ơn mọi ý kiến đóng góp và xây dựng để '),
-                                TextSpan(text: 'WhatMenuToday', style: TextStyle(fontWeight: FontWeight.bold)),
-                                TextSpan(text: ' ngày càng hoàn thiện hơn.'),
+                                TextSpan(text: 'Xin chân thành cảm ơn mọi ý kiến đóng góp và xây dựng để chúng tôi ngày càng hoàn thiện hơn.'),
+//                                TextSpan(text: 'WhatMenuToday', style: TextStyle(fontWeight: FontWeight.bold)),
+//                                TextSpan(text: ' ngày càng hoàn thiện hơn.'),
                               ],
                             ),
                           ),

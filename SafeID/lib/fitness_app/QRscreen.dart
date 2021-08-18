@@ -138,7 +138,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                       children: [
                         Text(
                           LanguageMap.getValue("code.desc"),
-                          style: TextStyle(fontSize: 13),
+                          style: TextStyle(fontSize: 14),
                           textAlign: TextAlign.center,
                         ),
                       ],
