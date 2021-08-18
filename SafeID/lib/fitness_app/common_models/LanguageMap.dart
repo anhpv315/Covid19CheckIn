@@ -91,7 +91,7 @@ class LanguageMap {
       "news.treated": "Being treated",
       "news.cured": "Cured",
       "news.dead": "Death",
-      "news.registed": "Registrations for vaccination",
+      "news.registed": "Registed for vac.",
       "news.24h": "Injections yesterday",
       "news.all": "Nationwide total",
       "code.qrTitle": "Generated QR Code",

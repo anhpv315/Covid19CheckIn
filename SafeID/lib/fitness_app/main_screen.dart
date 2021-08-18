@@ -10,9 +10,11 @@ import 'package:best_flutter_ui_templates/fitness_app/top_dishes/user_info.dart'
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'app_theme.dart';
+import 'common_models/LanguageMap.dart';
 import 'models/user.dart';
 import 'my_diary/home_screen.dart';
 
@@ -46,11 +48,6 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     super.initState();
   }
 
-  void loadUser() async{
-
-    await setDataToLocal();
-    await getDataFromLocal();
-  }
 
   @override
   void dispose() {
@@ -74,12 +71,21 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return WillPopScope(
       // ignore: missing_return
       onWillPop: () {
-        int tabID = InheritedObjects.of(context).bodyWidget.currentBody;
-        if ([1,2,3,4,5,6,7,8,9].contains(tabID)) {
-          Utils.backToLastTab(context);
-        } else{
-          SystemNavigator.pop();
-        }
+//        int tabID = InheritedObjects.of(context).bodyWidget.currentBody;
+//        if ([2,3,4,5,6,7,8,9].contains(tabID)) {
+//          Utils.backToLastTab(context);
+//        } else if(tabID == 1){
+//          SystemNavigator.pop();
+//        }
+//        Fluttertoast.showToast(
+//            msg: LanguageMap.getValue("code.copyMsg") ,
+//            toastLength: Toast.LENGTH_SHORT,
+//            gravity: ToastGravity.CENTER,
+//            timeInSecForIosWeb: 1,
+//            backgroundColor: AppTheme.lightCyan,
+//            textColor: Colors.white,
+//            fontSize: 16.0
+//        );
       },
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -132,30 +138,7 @@ class _MainScreenState extends State<MainScreen> with TickerProviderStateMixin {
     return true;
   }
 
-  setDataToLocal() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('id','abcxyz');
-    prefs.setString('name', "PHẠM VIỆT ANH");
-    prefs.setString('phone', "01086820000");
-    prefs.setString('address', "303 ShynDongBil");
-    prefs.setString('org_cd', "001");
-    prefs.setString('org_nm', "Hagidong");
 
-  }
-
-  getDataFromLocal() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    // currentUser.id = await prefs.getString('id');
-    // currentUser.name = await prefs.getString('name');
-    // currentUser.phone = await prefs.getString('phone');
-    // currentUser.address = await prefs.getString('address');
-    // currentUser.org_cd = await prefs.getString('org_cd');
-    // currentUser.org_nm = await prefs.getString('org_nm');
-
-    // setState(() {
-    //   InheritedObjects.of(context).user.updateCurrentUser(currentUser);
-    // });
-  }
 
   Widget getAppBarUI() {
     return Column(

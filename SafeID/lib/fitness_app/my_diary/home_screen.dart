@@ -1,24 +1,15 @@
 import 'dart:async';
 
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/RecentHisList.dart';
 import 'package:best_flutter_ui_templates/fitness_app/common_models/CommonWidgets.dart';
 import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
 import 'package:best_flutter_ui_templates/fitness_app/common_models/RecentHisColumn.dart';
 import 'package:best_flutter_ui_templates/fitness_app/common_models/header.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/dish.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/user.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/mediterranesn_diet_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/suggestion_intro.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
 import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/HexColor.dart';
 import 'package:best_flutter_ui_templates/fitness_app/util/LocalStorage.dart';
-// import 'package:best_flutter_ui_templates/game/dice/dice.dart';
 import 'package:flutter/material.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'package:best_flutter_ui_templates/fitness_app/main_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../main_screen.dart';
 import '../util/Utils.dart';
 
 class HomeScreen extends StatefulWidget {

@@ -211,7 +211,7 @@ class _HeaderState extends State<Header> with TickerProviderStateMixin {
         )
     );
 
-    leftButton =  !{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}.contains(currentTab)?
+    leftButton =  currentTab != 1?
     new SizedBox(
         height: 30.0,
         width: 30.0,
