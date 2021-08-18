@@ -1,24 +1,13 @@
 
 
 
-import 'package:best_flutter_ui_templates/fitness_app/models/dish.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
+import 'package:safeID/fitness_app/models/tabIcon_data.dart';
 import 'package:flutter/material.dart';
 
 import '../InheritedModel/InheritedObject.dart';
-import 'api.dart';
 
 class Utils{
 
-  static Future<List<String>> getListFilteredByKeyword(String pattern) async {
-    return await API.getListFilteredByKeyword({'KEYWORD': pattern});
-  }
-
-
-  static void doLike(String like){
-    API.doLike({'like': like});
-  }
-  //
   // static void updateTopList(BuildContext context){
   //   API.getListTopPublic().then((res) {
   //     InheritedObjects.of(context).listTop.updateListTop(res);

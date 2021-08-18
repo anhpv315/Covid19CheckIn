@@ -1,10 +1,10 @@
-import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
-import 'package:best_flutter_ui_templates/fitness_app/theme/color/light_color.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/HexColor.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
+import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
+import 'package:safeID/fitness_app/theme/color/light_color.dart';
+import 'package:safeID/fitness_app/util/HexColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
+import 'package:safeID/fitness_app/util/Utils.dart';
 import 'package:flutter_html/style.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 

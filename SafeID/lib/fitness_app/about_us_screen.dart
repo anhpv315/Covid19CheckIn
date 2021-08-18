@@ -1,9 +1,6 @@
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/CommonWidgets.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/header.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/dish.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/HexColor.dart';
+import 'package:safeID/fitness_app/common_models/CommonWidgets.dart';
+import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
+import 'package:safeID/fitness_app/common_models/header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';

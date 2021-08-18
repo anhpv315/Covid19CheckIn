@@ -1,18 +1,10 @@
 import 'dart:io';
-import 'package:best_flutter_ui_templates/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/CurrentDish.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/CurrentFood.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/HashTag.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedUser.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/ListDishesResult.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/ListFood.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/ListFoodsResult.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/ListRandom.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/ListSuggestion.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/ListTab.dart';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/RecentHisList.dart';
-import 'package:best_flutter_ui_templates/loading_screen.dart';
+import 'package:safeID/app_theme.dart';
+import 'package:safeID/fitness_app/InheritedModel/InheritedObject.dart';
+import 'package:safeID/fitness_app/InheritedModel/InheritedUser.dart';
+import 'package:safeID/fitness_app/InheritedModel/ListTab.dart';
+import 'package:safeID/fitness_app/InheritedModel/RecentHisList.dart';
+import 'package:safeID/loading_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'fitness_app/InheritedModel/BodyWidget.dart';
@@ -56,7 +48,6 @@ class MyApp extends StatelessWidget {
       bodyWidget: BodyWidget(),
       user: InheritedUser(),
       listTab: ListTab(),
-      hashTag: HashTag(),
       keyword: Keyword(),
       hisList: RecentHisList(),
       lang: Lang(),

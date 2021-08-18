@@ -1,18 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:best_flutter_ui_templates/fitness_app/common_models/CommonWidgets.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/RecentHisColumn.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/header.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/user.dart';
-import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/LocalStorage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:safeID/fitness_app/InheritedModel/InheritedObject.dart';
+import 'package:safeID/fitness_app/common_models/CommonWidgets.dart';
+import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
+import 'package:safeID/fitness_app/common_models/header.dart';
+import 'package:safeID/fitness_app/models/user.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
 import 'package:flutter/material.dart';
-import 'package:best_flutter_ui_templates/fitness_app/main_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:safeID/fitness_app/main_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../util/Utils.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -39,7 +37,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         CurvedAnimation(
             parent: widget.animationController,
             curve: Interval(0, 0.5, curve: Curves.fastOutSlowIn)));
-    leakNumbers();
     scrollController.addListener(() {
       if (scrollController.offset >= 24) {
         if (topBarOpacity != 1.0) {
@@ -63,14 +60,20 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       }
     });
     super.initState();
+    Future.delayed(Duration.zero, () {
+      this.leakNumbers();
+
+    });
   }
 
   void leakNumbers() async {
     if (waiting) {
       return;
     }
+
 //    print(1);
     if (tin.isEmpty) {
+      try{
       final response = await http
           .get(Uri.parse('https://ncov.moh.gov.vn/vi/web/guest/tin-tuc'));
       String source = Utf8Decoder().convert(response.bodyBytes);
@@ -108,7 +111,33 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           waiting = false;
         }
       } else {
-        throw Exception('Failed to load dishes');
+        throw Exception('Tải xuống dữ liệu không thành công.');
+      }
+      }catch(e){
+       print( e.toString());
+        Fluttertoast.showToast(
+            msg: "Không có kết nối internet.",
+            toastLength:
+            Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor:
+            AppTheme.lightCyan,
+            textColor: Colors.white,
+            fontSize: 16.0);
+       if (mounted) {
+         setState(() {
+           const int count = 4;
+
+           Animation animation = Tween<double>(begin: 0.0, end: 1.0).animate(
+               CurvedAnimation(
+                   parent: widget.animationController,
+                   curve: Interval((1 / 9) * 0, 1.0, curve: Curves.fastOutSlowIn)));
+
+           listViews.add(CommonWidgets.singleTitleWithAnimation(
+               LanguageMap.getValue("news.news"), widget.animationController));
+         });
+       }
       }
     }
 
@@ -122,70 +151,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
         CurvedAnimation(
             parent: widget.animationController,
             curve: Interval((1 / 9) * 0, 1.0, curve: Curves.fastOutSlowIn)));
-//     listViews.add(
-//       TitleView(
-//         titleTxt: LanguageMap.getValue("main.info"),
-//         subTxt: LanguageMap.getValue("main.updateInfo"),
-//         subTxtAction: (){
-//           widget.animationController.reverse().then<dynamic>((data) {
-//             Utils.updateTabIndex(context, 3);
-//
-// //            BodyWidgetInherited.of(context).bodyWidget.setCurrentTab(2);
-//           });
-//         },
-//         animation: Tween<double>(begin: 0.0, end: 1.0).animate(
-//             CurvedAnimation(
-//                 parent: widget.animationController,
-//                 curve:
-//                     Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn)
-//             )
-//         ),
-//         animationController: widget.animationController,
-//       ),
-//     );
-    // listViews.add(
-    //     CommonWidgets.singleTitleWithAnimation(LanguageMap.getValue("main.info"), widget.animationController)
-    // );
-    // listViews.add(AnimatedBuilder(
-    //     animation: widget.animationController,
-    //     builder: (BuildContext context, Widget child) {
-    //       user = InheritedObjects.of(context).user.currentUser;
-    //       return FadeTransition(
-    //           opacity: topBarAnimation,
-    //           child: new Transform(
-    //               transform: new Matrix4.translationValues(
-    //                   0.0, 30 * (1.0 - animation.value), 0.0),
-    //               child: Padding(
-    //                 padding: const EdgeInsets.only(
-    //                     left: 24, right: 24, top: 16, bottom: 18),
-    //                 child: Container(
-    //                   decoration: BoxDecoration(
-    //                     color: AppTheme.lightCyan,
-    //                     borderRadius: BorderRadius.only(
-    //                         topLeft: Radius.circular(8.0),
-    //                         bottomLeft: Radius.circular(24.0),
-    //                         bottomRight: Radius.circular(8.0),
-    //                         topRight: Radius.circular(24.0)),
-    //                     boxShadow: <BoxShadow>[
-    //                       BoxShadow(
-    //                           color: AppTheme.grey.withOpacity(0.2),
-    //                           offset: Offset(1.1, 1.1),
-    //                           blurRadius: 10.0),
-    //                     ],
-    //                   ),
-    //                   padding: EdgeInsets.fromLTRB(24, 16, 24, 16),
-    //                   child: Column(
-    //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                     crossAxisAlignment: CrossAxisAlignment.stretch,
-    //                     children: <Widget>[
-    //                       Text(user.name != null? user.name: "", style: TextStyle(fontWeight: FontWeight.w600),),
-    //                       Text(user.address != null? user.address: ""),
-    //                       Text(user.org_nm != null? user.org_nm: ""),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               )));
-    //     }));
 
     listViews.add(CommonWidgets.singleTitleWithAnimation(
         LanguageMap.getValue("news.news"), widget.animationController));
@@ -247,12 +212,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   }
 
   void openURL(String url) async {
-//    print("run "+ url);
+    //    print("run "+ url);
     if (await canLaunch(url))
-    await launch(url);
+      await launch(url);
     else
     // can't launch url, there is some error
-    throw "Could not launch $url";
+      throw "Could not launch $url";
   }
 
   @override

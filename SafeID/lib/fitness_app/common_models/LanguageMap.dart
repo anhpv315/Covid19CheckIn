@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/fitness_app/util/LocalStorage.dart';
+import 'package:safeID/fitness_app/util/LocalStorage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LanguageMap {
@@ -8,7 +8,7 @@ class LanguageMap {
       "loading.connect_server": "Kết nối tới máy chủ.",
       "loading.connect": "Kết nối sẵn sàng.",
       "loading.server_failed": "Máy chủ hiện đang quá tải hoặc tạm dừng để nâng cấp.\n Vui lòng thử lại sau!",
-      "loading.internet_failed": "Kết nối không thành công.\n Vui lòng kiểm tra lại kết nối mạng!",
+      "loading.internet_failed": "Kết nối không thành công.",
       "main.search": "Tìm kiếm",
       "main.make_what_you_have": "Có gì làm nấy!",
       "main.let_go": "Tìm món phù hợp",
@@ -59,7 +59,7 @@ class LanguageMap {
       "loading.connect_server": "Connecting to Server.",
       "loading.connect": "Connection is ready.",
       "loading.server_failed": "The server is currently overloaded or paused for an upgrade.\n Please try again later!",
-      "loading.internet_failed": "Connection failed.\n Please check your network connection!",
+      "loading.internet_failed": "Connection failed.",
       "main.search": "Search",
       "main.make_what_you_have": "Cook what you have!",
       "main.let_go": "Let's go",

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
-import 'package:best_flutter_ui_templates/fitness_app/main_screen.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
+import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
+import 'package:safeID/fitness_app/main_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
 
@@ -40,22 +40,12 @@ class _LoadingScreenState extends State<LoadingScreen>
         setState(() {
           status = LanguageMap.getValue("loading.connect_server");
         });
-        try{
-        final result2  = await InternetAddress.lookup('whatmenutoday.com');
-        if (result2.isNotEmpty && result2[0].rawAddress.isNotEmpty) {
-          await new Future.delayed(const Duration(milliseconds : 500));
-          setState(() {
-            status = LanguageMap.getValue("loading.connect");
-          });
-          var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
-        }
-        } on SocketException catch (_) {
-          status = LanguageMap.getValue("loading.server_failed");
-        }
-
+        var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
       }
     } on SocketException catch (_) {
       status = LanguageMap.getValue("loading.internet_failed");
+
+      var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
     }
   }
 

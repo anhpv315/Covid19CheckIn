@@ -1,5 +1,5 @@
-import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/historyMove.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
+import 'package:safeID/fitness_app/models/historyMove.dart';
 import 'package:flutter/material.dart';
 
 import '../InheritedModel/InheritedObject.dart';

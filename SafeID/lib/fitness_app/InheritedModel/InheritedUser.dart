@@ -1,6 +1,5 @@
-import 'package:best_flutter_ui_templates/fitness_app/models/dish.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/user.dart';
+import 'package:safeID/fitness_app/models/tabIcon_data.dart';
+import 'package:safeID/fitness_app/models/user.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';

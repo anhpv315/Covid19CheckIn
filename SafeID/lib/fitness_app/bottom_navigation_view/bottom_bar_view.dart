@@ -1,13 +1,13 @@
 import 'dart:async';
 import 'dart:math' as math;
 import 'dart:math';
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
-import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/HexColor.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/TriangleShape.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
+import 'package:safeID/fitness_app/InheritedModel/InheritedObject.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
+import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
+import 'package:safeID/fitness_app/models/tabIcon_data.dart';
+import 'package:safeID/fitness_app/util/HexColor.dart';
+import 'package:safeID/fitness_app/util/TriangleShape.dart';
+import 'package:safeID/fitness_app/util/Utils.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -68,16 +68,16 @@ class _BottomBarViewState extends State<BottomBarView>
     scoreOutPositionAnimation.addListener((){
       setState(() {});
     });
-    scoreOutAnimationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        _scoreWidgetStatus = ScoreWidgetStatus.HIDDEN;
-        if(this._counter != 0) {
-          requestLike(this._counter);
-        }
-        // print('cancel');
-        this._counter = 0;
-      }
-    });
+    // scoreOutAnimationController.addStatusListener((status) {
+    //   if (status == AnimationStatus.completed) {
+    //     _scoreWidgetStatus = ScoreWidgetStatus.HIDDEN;
+    //     if(this._counter != 0) {
+    //       requestLike(this._counter);
+    //     }
+    //     // print('cancel');
+    //     this._counter = 0;
+    //   }
+    // });
 
     scoreSizeAnimationController = new AnimationController(duration: new Duration(milliseconds: 150), vsync: this);
     scoreSizeAnimationController.addStatusListener((status) {
@@ -424,9 +424,9 @@ class _BottomBarViewState extends State<BottomBarView>
     return widget;
   }
 
-  void requestLike(int like) {
-    Utils.doLike(like.toString());
-  }
+  // void requestLike(int like) {
+  //   Utils.doLike(like.toString());
+  // }
 
   void increment(Timer t) {
     scoreSizeAnimationController.forward(from: 0.0);

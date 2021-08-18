@@ -1,17 +1,13 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:best_flutter_ui_templates/fitness_app/common_models/CommonWidgets.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/header.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/dish.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/mediterranesn_diet_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/Encryption.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
+import 'package:safeID/fitness_app/common_models/header.dart';
+import 'package:safeID/fitness_app/util/Encryption.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_html/style.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -84,7 +80,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
     msg = pre + "&" + id + '&' + strTime;
     msg = Encryption.encrypt(msg);
 //    print(msg);
-    print(Encryption.decrypt(msg));
+//     print(Encryption.decrypt(msg));
 //    print(msg.length);
   }
 
@@ -201,7 +197,8 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                                   color: AppTheme.nearlyWhite,
                                   child: Padding(
                                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                    child: Row(
+                                    child:
+                                    Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
@@ -212,13 +209,25 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                                               fontSize: 13, fontFamily: "Sans"),
                                           textAlign: TextAlign.center,
                                         ),
-                                        Text(
-                                          id,
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600,
-                                              fontFamily: "Sans",
-                                              fontSize: 13),
+                                        Flexible(
+                                          child: Container(
+                                            // color: Colors.red,
+                                            child: RichText(
+                                              overflow: TextOverflow.ellipsis,
+                                              strutStyle: StrutStyle(fontSize: 13.0),
+                                              text: TextSpan(
+                                                  style: TextStyle(color: AppTheme.darkerText, fontFamily: "Sans", fontWeight: FontWeight.w800),
+                                                  text: id),
+                                            ),
+                                          )
                                         ),
+                                        // Text(
+                                        //   id,
+                                        //   style: TextStyle(
+                                        //       fontWeight: FontWeight.w600,
+                                        //       fontFamily: "Sans",
+                                        //       fontSize: 13),
+                                        // ),
                                         IconButton(
                                             icon: Icon(
                                               Icons.copy,

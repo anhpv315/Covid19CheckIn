@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/fitness_app/models/historyMove.dart';
+import 'package:safeID/fitness_app/models/historyMove.dart';
 import 'package:rxdart/rxdart.dart';
 
 class RecentHisList {

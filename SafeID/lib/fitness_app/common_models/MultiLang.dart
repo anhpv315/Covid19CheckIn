@@ -1,4 +1,4 @@
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
+import 'package:safeID/fitness_app/InheritedModel/InheritedObject.dart';
 import 'package:flutter/material.dart';
 import './LanguageMap.dart';
 

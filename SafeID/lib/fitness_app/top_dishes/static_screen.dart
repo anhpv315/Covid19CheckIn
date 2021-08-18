@@ -1,16 +1,14 @@
 import 'dart:convert';
 
-import 'package:best_flutter_ui_templates/fitness_app/InheritedModel/InheritedObject.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/CommonWidgets.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/LanguageMap.dart';
-import 'package:best_flutter_ui_templates/fitness_app/common_models/header.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/dish.dart';
-import 'package:best_flutter_ui_templates/fitness_app/models/user.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/mediterranesn_diet_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/app_theme.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/LocalStorage.dart';
-import 'package:best_flutter_ui_templates/fitness_app/util/Utils.dart';
+import 'package:safeID/fitness_app/util/Utils.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:safeID/fitness_app/InheritedModel/InheritedObject.dart';
+import 'package:safeID/fitness_app/common_models/CommonWidgets.dart';
+import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
+import 'package:safeID/fitness_app/common_models/header.dart';
+import 'package:safeID/fitness_app/models/user.dart';
+import 'package:safeID/fitness_app/app_theme.dart';
+import 'package:safeID/fitness_app/util/LocalStorage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -104,95 +102,111 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
     if(waiting){
       return;
     }
-    print(1);
-    if(ca_nhiem == "") {
-      final response = await http.get(Uri.parse('https://ncov.moh.gov.vn/'));
-      String source = Utf8Decoder().convert(response.bodyBytes);
+    // print(1);
+    try {
+      if (ca_nhiem == "") {
+        final response = await http.get(Uri.parse('https://ncov.moh.gov.vn/'));
+        String source = Utf8Decoder().convert(response.bodyBytes);
 
-      if (response.statusCode == 200) {
-        // print(source);
-        var regexp = new RegExp(
-            r'Số ca nhiễm <br> <span class="font24">([\d|\.]*)</span>');
-        ca_nhiem =
-            regexp.allMatches(source).map((m) => m.group(1)).elementAt(0);
-        var regexp2 = new RegExp(
-            r'Đang điều trị <br> <span class="font24">([\d|\.]*)</span>');
-        dang_dieu_tri =
-            regexp2.allMatches(source).map((m) => m.group(1)).elementAt(0);
-        var regexp3 =
-        new RegExp(r'Khỏi <br> <span class="font24">([\d|\.]*)</span>');
-        khoi = regexp3.allMatches(source).map((m) => m.group(1)).elementAt(0);
-        var regexp4 =
-        new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
-        tu_vong =
-            regexp4.allMatches(source).map((m) => m.group(1)).elementAt(0);
+        if (response.statusCode == 200) {
+          // print(source);
+          var regexp = new RegExp(
+              r'Số ca nhiễm <br> <span class="font24">([\d|\.]*)</span>');
+          ca_nhiem =
+              regexp.allMatches(source).map((m) => m.group(1)).elementAt(0);
+          var regexp2 = new RegExp(
+              r'Đang điều trị <br> <span class="font24">([\d|\.]*)</span>');
+          dang_dieu_tri =
+              regexp2.allMatches(source).map((m) => m.group(1)).elementAt(0);
+          var regexp3 =
+          new RegExp(r'Khỏi <br> <span class="font24">([\d|\.]*)</span>');
+          khoi = regexp3.allMatches(source).map((m) => m.group(1)).elementAt(0);
+          var regexp4 =
+          new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
+          tu_vong =
+              regexp4.allMatches(source).map((m) => m.group(1)).elementAt(0);
 
-        regexp = new RegExp(
-            r'Tổng ca nhiễm <br> <span class="font24">([\d|\.]*)</span>');
-        ca_nhiem_g =
-            regexp.allMatches(source).map((m) => m.group(1)).elementAt(0);
-        regexp2 =
-        new RegExp(r'Đang nhiễm <br> <span class="font24">([\d|\.]*)</span>');
-        dang_dieu_tri_g =
-            regexp2.allMatches(source).map((m) => m.group(1)).elementAt(0);
-        regexp3 =
-        new RegExp(r'Khỏi <br> <span class="font24">([\d|\.]*)</span>');
-        khoi_g = regexp3.allMatches(source).map((m) => m.group(1)).elementAt(1);
-        regexp4 =
-        new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
-        tu_vong_g =
-            regexp4.allMatches(source).map((m) => m.group(1)).elementAt(1);
-        if(tu_vong != "" && dk != "" && tiem_24h != ""){
-          waiting = false;
+          regexp = new RegExp(
+              r'Tổng ca nhiễm <br> <span class="font24">([\d|\.]*)</span>');
+          ca_nhiem_g =
+              regexp.allMatches(source).map((m) => m.group(1)).elementAt(0);
+          regexp2 =
+          new RegExp(r'Đang nhiễm <br> <span class="font24">([\d|\.]*)</span>');
+          dang_dieu_tri_g =
+              regexp2.allMatches(source).map((m) => m.group(1)).elementAt(0);
+          regexp3 =
+          new RegExp(r'Khỏi <br> <span class="font24">([\d|\.]*)</span>');
+          khoi_g =
+              regexp3.allMatches(source).map((m) => m.group(1)).elementAt(1);
+          regexp4 =
+          new RegExp(r'Tử vong <br> <span class="font24">([\d|\.]*)</span>');
+          tu_vong_g =
+              regexp4.allMatches(source).map((m) => m.group(1)).elementAt(1);
+          if (tu_vong != "" && dk != "" && tiem_24h != "") {
+            waiting = false;
+          }
+        } else {
+          throw Exception('Tải xuống dữ liệu không thành công.');
         }
-      } else {
-        throw Exception('Failed to load dishes');
       }
-    }
 
-    if(dk == "") {
-      final response2 = await http.get(Uri.parse(
-          'https://tiemchungcovid19.gov.vn/api/public/dashboard/vaccination-statistics/summary'));
-      String source2 = Utf8Decoder().convert(response2.bodyBytes);
-      if (response2.statusCode == 200) {
-        // print(source);
-        var result = json.decode(source2);
-        dk = numberTemplate(result['totalVaccinationRegistration'].toString());
-        if (mounted) {
-          setState(() {
+      if (dk == "") {
+        final response2 = await http.get(Uri.parse(
+            'https://tiemchungcovid19.gov.vn/api/public/dashboard/vaccination-statistics/summary'));
+        String source2 = Utf8Decoder().convert(response2.bodyBytes);
+        if (response2.statusCode == 200) {
+          // print(source);
+          var result = json.decode(source2);
+          dk =
+              numberTemplate(result['totalVaccinationRegistration'].toString());
+          if (mounted) {
+            setState(() {
 
-          });
+            });
+          }
+          if (tu_vong != "" && dk != "" && tiem_24h != "") {
+            waiting = false;
+          }
+        } else {
+          throw Exception('Failed to load dishes');
         }
-        if(tu_vong != "" && dk != "" && tiem_24h != ""){
-          waiting = false;
-        }
-      } else {
-        throw Exception('Failed to load dishes');
       }
-    }
 
-    if(tiem_24h == "") {
-      final response3 = await http.get(Uri.parse(
-          'https://tiemchungcovid19.gov.vn/api/public/dashboard/vaccination-statistics/get-detail-latest'));
-      String source3 = Utf8Decoder().convert(response3.bodyBytes);
-      if (response3.statusCode == 200) {
-        // print(source);
-        var result = json.decode(source3);
-        tiem_24h = numberTemplate(result['totalPopulation'].toString());
-        da_tiem = numberTemplate(result['objectInjection'].toString());
-        if (mounted) {
-          setState(() {
+      if (tiem_24h == "") {
+        final response3 = await http.get(Uri.parse(
+            'https://tiemchungcovid19.gov.vn/api/public/dashboard/vaccination-statistics/get-detail-latest'));
+        String source3 = Utf8Decoder().convert(response3.bodyBytes);
+        if (response3.statusCode == 200) {
+          // print(source);
+          var result = json.decode(source3);
+          tiem_24h = numberTemplate(result['totalPopulation'].toString());
+          da_tiem = numberTemplate(result['objectInjection'].toString());
+          if (mounted) {
+            setState(() {
 
-          });
+            });
+          }
+          if (tu_vong != "" && dk != "" && tiem_24h != "") {
+            waiting = false;
+          }
+        } else {
+          throw Exception('Failed to load dishes');
         }
-        if(tu_vong != "" && dk != "" && tiem_24h != ""){
-          waiting = false;
-        }
-      } else {
-        throw Exception('Failed to load dishes');
       }
+      waiting = true;
+    } catch (e) {
+        print(e.toString());
+        Fluttertoast.showToast(
+            msg: "Không có kết nối internet.",
+            toastLength:
+            Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor:
+            AppTheme.lightCyan,
+            textColor: Colors.white,
+            fontSize: 16.0);
     }
-    waiting = true;
   }
 
   void updateUserInfo() {}
@@ -250,7 +264,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color: Color(0xFF8B0000)),
                               ),
                               SizedBox(width: 10,),
-                              Text(ca_nhiem,
+                              Text(ca_nhiem.isEmpty? "--": ca_nhiem,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF8B0000)),
                               ),
                             ],
@@ -263,7 +277,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color: Colors.deepOrange),
                               ),
                               SizedBox(width: 10,),
-                              Text(dang_dieu_tri,
+                              Text(dang_dieu_tri.isEmpty? "--": dang_dieu_tri,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Colors.deepOrange),
                               ),
                             ],
@@ -276,7 +290,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle( color: Colors.green),
                               ),
                               SizedBox(width: 10,),
-                              Text(khoi,
+                              Text(khoi.isEmpty? "--": khoi,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
                               ),
                             ],
@@ -289,7 +303,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color: Color(0xFF808080)),
                               ),
                               SizedBox(width: 10,),
-                              Text(tu_vong,
+                              Text(tu_vong.isEmpty? "--": tu_vong,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF808080)),
                               ),
                             ],
@@ -302,7 +316,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color:  AppTheme.darkCyan),
                               ),
                               SizedBox(width: 10,),
-                              Text(dk,
+                              Text(dk.isEmpty? "--": dk,
                                 style: TextStyle(fontWeight: FontWeight.w600, color:  AppTheme.darkText),
                               ),
                             ],
@@ -315,7 +329,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle( color:  AppTheme.darkCyan),
                               ),
                               SizedBox(width: 10,),
-                              Text(tiem_24h,
+                              Text(tiem_24h.isEmpty? "--": tiem_24h,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkText),
                               ),
                             ],
@@ -328,7 +342,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color: AppTheme.darkCyan),
                               ),
                               SizedBox(width: 10,),
-                              Text(da_tiem,
+                              Text(da_tiem.isEmpty? "--": da_tiem,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: AppTheme.darkText),
                               ),
                             ],
@@ -382,7 +396,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle( color: Color(0xFF8B0000)),
                               ),
                               SizedBox(width: 10,),
-                              Text(ca_nhiem_g,
+                              Text(ca_nhiem_g.isEmpty? "--": ca_nhiem_g,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF8B0000)),
                               ),
                             ],
@@ -395,7 +409,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color: Colors.deepOrange),
                               ),
                               SizedBox(width: 10,),
-                              Text(dang_dieu_tri_g,
+                              Text(dang_dieu_tri_g.isEmpty? "--": dang_dieu_tri_g,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Colors.deepOrange),
                               ),
                             ],
@@ -408,7 +422,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color: Colors.green),
                               ),
                               SizedBox(width: 10,),
-                              Text(khoi_g,
+                              Text(khoi_g.isEmpty? "--": khoi_g,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Colors.green),
                               ),
                             ],
@@ -421,7 +435,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                                 style: TextStyle(color:  Color(0xFF808080)),
                               ),
                               SizedBox(width: 10,),
-                              Text(tu_vong_g,
+                              Text(tu_vong_g.isEmpty? "--": tu_vong_g,
                                 style: TextStyle(fontWeight: FontWeight.w600, color: Color(0xFF808080)),
                               ),
                             ],
