@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'package:safeID/fitness_app/app_theme.dart';
-import 'package:safeID/fitness_app/common_models/LanguageMap.dart';
 import 'package:safeID/fitness_app/main_screen.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter/material.dart';
@@ -27,26 +24,28 @@ class _LoadingScreenState extends State<LoadingScreen>
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    status = LanguageMap.getValue("loading.check_internet");
+//    status = LanguageMap.getValue("loading.check_internet");
     checkConnection();
     super.initState();
   }
 
   Future<void> checkConnection() async {
-    try {
-      final result = await InternetAddress.lookup('google.com');
-      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-        await new Future.delayed(const Duration(milliseconds : 10));
-        setState(() {
-          status = LanguageMap.getValue("loading.connect_server");
-        });
-        var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
-      }
-    } on SocketException catch (_) {
-      status = LanguageMap.getValue("loading.internet_failed");
+    var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
 
-      var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
-    }
+//    try {
+//      final result = await InternetAddress.lookup('google.com');
+//      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+//        await new Future.delayed(const Duration(milliseconds : 10));
+//        setState(() {
+//          status = LanguageMap.getValue("loading.connect_server");
+//        });
+//        var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
+//      }
+//    } on SocketException catch (_) {
+//      status = LanguageMap.getValue("loading.internet_failed");
+//
+//      var future2 = new Future.delayed(const Duration(milliseconds: 500), screenCallBack);
+//    }
   }
 
   void screenCallBack() {

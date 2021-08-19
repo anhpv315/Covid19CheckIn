@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:safeID/fitness_app/app_theme.dart';
 import 'package:safeID/fitness_app/common_models/header.dart';
 import 'package:safeID/fitness_app/util/Encryption.dart';
-import 'package:device_info/device_info.dart';
+//import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,17 +84,17 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
 //    print(msg.length);
   }
 
-  Future<String> _getId() async {
-    var deviceInfo = DeviceInfoPlugin();
-    if (Platform.isIOS) {
-      // import 'dart:io'
-      var iosDeviceInfo = await deviceInfo.iosInfo;
-      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-    } else {
-      var androidDeviceInfo = await deviceInfo.androidInfo;
-      return androidDeviceInfo.androidId; // unique ID on Android
-    }
-  }
+//  Future<String> _getId() async {
+//    var deviceInfo = DeviceInfoPlugin();
+//    if (Platform.isIOS) {
+//      // import 'dart:io'
+//      var iosDeviceInfo = await deviceInfo.iosInfo;
+//      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+//    } else {
+//      var androidDeviceInfo = await deviceInfo.androidInfo;
+//      return androidDeviceInfo.androidId; // unique ID on Android
+//    }
+//  }
 
   Widget resetCounter() {
     counter = counterLength;
@@ -129,8 +129,9 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
 
   void initData() async{
     await Future<dynamic>.delayed(const Duration(milliseconds: 50));
-    id = await _getId();
-//    print(id);
+//    id = await _getId();
+//    id = "awaiting";
+    print(id);
     getMessage();
     resetCounter();
   }
