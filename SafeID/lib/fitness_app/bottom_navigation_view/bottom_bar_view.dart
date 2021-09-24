@@ -107,7 +107,7 @@ class _BottomBarViewState extends State<BottomBarView>
   Widget build(BuildContext context) {
 
     final SimpleDialog dialog = SimpleDialog(
-      title: Text(LanguageMap.getValue('code.qrTitle')),
+      title: Text(LanguageMap.getValue('code.qrTitle').isNotEmpty?LanguageMap.getValue('code.qrTitle'):""),
       children: [
         SimpleDialogOption(
           child: Padding(

@@ -579,7 +579,7 @@ class _StatisticScreenState extends State<StatisticScreen> with TickerProviderSt
                               left: 15, right: 20, top: 0, bottom: 0),
                           child: DropdownButtonHideUnderline(
                               child: DropdownButton(
-                                value: lang.isNotEmpty? lang: 'vn',
+                                value: lang.isNotEmpty? lang: 'vi',
                                 items: listLangItem,
                                 focusColor: AppTheme.darkText,
                                 dropdownColor: AppTheme.darkCyan,

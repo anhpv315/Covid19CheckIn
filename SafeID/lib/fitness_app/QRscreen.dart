@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:safeID/fitness_app/app_theme.dart';
 import 'package:safeID/fitness_app/common_models/header.dart';
 import 'package:safeID/fitness_app/util/Encryption.dart';
-//import 'package:device_info/device_info.dart';
+import 'package:device_info/device_info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,17 +84,17 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
 //    print(msg.length);
   }
 
-//  Future<String> _getId() async {
-//    var deviceInfo = DeviceInfoPlugin();
-//    if (Platform.isIOS) {
-//      // import 'dart:io'
-//      var iosDeviceInfo = await deviceInfo.iosInfo;
-//      return iosDeviceInfo.identifierForVendor; // unique ID on iOS
-//    } else {
-//      var androidDeviceInfo = await deviceInfo.androidInfo;
-//      return androidDeviceInfo.androidId; // unique ID on Android
-//    }
-//  }
+ Future<String> _getId() async {
+   var deviceInfo = DeviceInfoPlugin();
+   if (Platform.isIOS) {
+     // import 'dart:io'
+     var iosDeviceInfo = await deviceInfo.iosInfo;
+     return iosDeviceInfo.identifierForVendor; // unique ID on iOS
+   } else {
+     var androidDeviceInfo = await deviceInfo.androidInfo;
+     return androidDeviceInfo.androidId; // unique ID on Android
+   }
+ }
 
   Widget resetCounter() {
     counter = counterLength;
@@ -129,7 +129,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
 
   void initData() async{
     await Future<dynamic>.delayed(const Duration(milliseconds: 50));
-//    id = await _getId();
+   id = await _getId();
 //    id = "awaiting";
     print(id);
     getMessage();
@@ -159,7 +159,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                         child: Column(
                           children: [
                             Text(
-                              LanguageMap.getValue("code.desc"),
+                              LanguageMap.getValue("code.desc").isEmpty? "":LanguageMap.getValue("code.desc"),
                               style: TextStyle(fontSize: 14),
                               textAlign: TextAlign.center,
                             ),
@@ -204,7 +204,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          LanguageMap.getValue("code.id") +
+                                          LanguageMap.getValue("code.id").isNotEmpty?LanguageMap.getValue("code.id"): "" +
                                               ": ",
                                           style: TextStyle(
                                               fontSize: 13, fontFamily: "Sans"),
@@ -238,8 +238,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                                               Clipboard.setData(
                                                   ClipboardData(text: id));
                                               Fluttertoast.showToast(
-                                                  msg: LanguageMap.getValue(
-                                                      "code.copyMsg"),
+                                                  msg: LanguageMap.getValue("code.copyMsg").isNotEmpty?LanguageMap.getValue("code.copyMsg"):"",
                                                   toastLength:
                                                       Toast.LENGTH_SHORT,
                                                   gravity: ToastGravity.CENTER,
@@ -271,7 +270,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                                     SizedBox(
                                       width: 5,
                                     ),
-                                    Text(LanguageMap.getValue("code.expired") +
+                                    Text(LanguageMap.getValue("code.expired").isNotEmpty?LanguageMap.getValue("code.expired"):"" +
                                         ":"),
                                     SizedBox(
                                       width: 5,
@@ -284,7 +283,7 @@ class _QRScreenState extends State<QRScreen> with TickerProviderStateMixin {
                                   color: AppTheme.cyan,
                                 ),
                                 Text(
-                                  LanguageMap.getValue("code.refresh"),
+                                  LanguageMap.getValue("code.refresh").isNotEmpty?LanguageMap.getValue("code.refresh"):"",
                                   style: TextStyle(fontSize: 13),
                                   textAlign: TextAlign.center,
                                 ),

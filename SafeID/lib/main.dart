@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
                 LocalStorage.localStorage.setString("lang", myLocale.languageCode);
                 break;
               default:
-                LocalStorage.localStorage.setString("lang", 'vn');
+                LocalStorage.localStorage.setString("lang", 'vi');
                 return;
             }
           }
